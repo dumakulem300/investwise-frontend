@@ -15,7 +15,7 @@ const StockModal = ({ symbol, isOpen, onClose }) => {
 
   const fetchChartData = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/chart/${symbol}`);
+      const response = await fetch(`https://investwise-backend-575k.onrender.com/chart/${symbol}`);
       const data = await response.json();
       setChartData(data);
     } catch (error) {
@@ -25,7 +25,7 @@ const StockModal = ({ symbol, isOpen, onClose }) => {
 
   const fetchNews = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/news/${symbol}`);
+      const response = await fetch(`https://investwise-backend-575k.onrender.com/news/${symbol}`);
       const data = await response.json();
       setNews(data);
     } catch (error) {
