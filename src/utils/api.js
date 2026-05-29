@@ -1,20 +1,19 @@
 import axios from 'axios';
-import { auth } from '../firebase';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://investwise-backend-575k.onrender.com',
+  baseURL: 'https://investwise-backend-575k.onrender.com',
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
-// Request interceptor to add Firebase token
+// Add a request interceptor to include Firebase ID token if user is logged in
 api.interceptors.request.use(async (config) => {
-  const user = auth.currentUser;
-  if (user) {
-    const token = await user.getIdToken();
+  const token = localStorage.getItem('firebaseToken');
+  if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
-}, (error) => {
-  return Promise.reject(error);
 });
 
 export default api;
